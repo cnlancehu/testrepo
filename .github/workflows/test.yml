@@ -1,13 +1,1 @@
-name: Build
-
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest 
-    steps:
-      - name: Runs on Ubuntu 20.04 - Node.js 16
-        run: npm -v
-      - name: 
-        uses: actions/checkout@v3
+awa
