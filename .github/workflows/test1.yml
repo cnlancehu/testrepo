@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: Initializing
+        uses: actions/checkout@v3
+      - name: Setting up environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16
+      - name: Installing dependencies
+        run: yarn add -D vuepress@next
+      - name: Building
+        run: yarn docs:build
+  Deploy:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: root
+          server: ${{ secrets.serverip }}
+          port: ${{ secrets.serverport }}
+          ssh_private_key: ${{ secrets.serversshkey }}
+          local_path: './public/*'
+          remote_path: '/site/discordpydoc'
+          sftp_only: false
+          sftpArgs: '-o ConnectTimeout=5'
+          delete_remote_files: true
