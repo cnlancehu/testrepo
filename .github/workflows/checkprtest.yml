@@ -26,8 +26,7 @@ jobs:
   Preview:
 #    needs: Build
     runs-on: ubuntu-latest
-    env:
-      PR_NUMBER: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
+
     steps:
 #      - name: Downloading build artifact
 #        uses: actions/download-artifact@v3.0.0
@@ -47,6 +46,7 @@ jobs:
 #          sftpArgs: '-o ConnectTimeout=5'
 #          delete_remote_files: true
       - name: Comment to PR
+        run: echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
         uses: JoseThen/comment-pr@v1.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
