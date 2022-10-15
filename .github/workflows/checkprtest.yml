@@ -26,8 +26,8 @@ jobs:
   Preview:
 #    needs: Build
     runs-on: ubuntu-latest
-    env:
-      PRID: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
+#    env:
+#      PRID: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
 #    steps:
 #      - name: Downloading build artifact
 #        uses: actions/download-artifact@v3.0.0
@@ -58,4 +58,4 @@ jobs:
 
             If the answer is no, please close this PR immediatly
 
-            [Check Your Code](https://prev.lancex.top/dspd/${{ env.PRID }})
+            [Check Your Code](https://prev.lancex.top/dspd/
