@@ -47,10 +47,10 @@ jobs:
 #          sftpArgs: '-o ConnectTimeout=5'
 #          delete_remote_files: true
       - name: Comment to PR
-        uses: github-actions-up-and-running/pr-comment@v1.0.0
+        uses: JoseThen/comment-pr@v1.1.1
         with:
-          repo-token: ${{ secrets.ghtoken }}
-          message: |
+          GITHUB_TOKEN: ${{ secrets.ghtoken }}
+          comment: |
             ### Thanks for your contribution
             If you can see this message, your check has already passed
 
