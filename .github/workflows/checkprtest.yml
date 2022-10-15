@@ -45,8 +45,9 @@ jobs:
 #          sftp_only: false
 #          sftpArgs: '-o ConnectTimeout=5'
 #          delete_remote_files: true
-      - name: Comment to PR
+      - name: awa
         run: echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
+      - name: Comment to PR
         uses: JoseThen/comment-pr@v1.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
