@@ -1,4 +1,4 @@
-name: PRCheck
+name: PRPreview
 
 on:
   pull_request:
