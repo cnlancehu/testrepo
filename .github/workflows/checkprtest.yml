@@ -64,3 +64,6 @@ jobs:
             ${{ env.File }}
 
             [Check Your Code](https://prev.lancex.top/dspd/${{ env.PR_NUMBER }})
+      - uses: actions/checkout@v2
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
