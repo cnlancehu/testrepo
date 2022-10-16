@@ -47,7 +47,7 @@ jobs:
       - name: Get PR ID
         run: |
           echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
-          echo FileName=$(echo $README_MD )
+          echo File=$(cat $README_MD )
       - name: Comment to PR
         uses: JoseThen/comment-pr@v1.1.1
         with:
