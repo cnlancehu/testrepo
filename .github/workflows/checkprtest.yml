@@ -61,6 +61,6 @@ jobs:
 
             Here is your Preview Link, please check if your expectations are met
 
-            If the answer is no, please close this PR immediatly
+            ${{ env.File }}
 
             [Check Your Code](https://prev.lancex.top/dspd/${{ env.PR_NUMBER }})
