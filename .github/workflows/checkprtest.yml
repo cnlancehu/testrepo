@@ -5,75 +5,38 @@ on:
     types: [opened, reopened]
 
 jobs:
-  Init:
-    runs-on: ubuntu-latest
+  Check:
+    runs-on: ubuntu-latest 
     steps:
       - name: Comment to PR
         uses: JoseThen/comment-pr@v1.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
           comment: |
-            ## Please Wait
-
+            ## Thanks for your contribution
+            
             **This message was sent automatically by CI**
 
-            we are building a preview page for your code
+            we are checking your code and later we will send you a preview link for your code here
 
-            later you will recieve a comment with your preview website link here
+            have a nice day~
 
-            have a nice day!
-#  Check:
-#    runs-on: ubuntu-latest 
-#    steps:
-#      - name: Intiializing
-#        uses: actions/checkout@v3
-#      - name: Setting up environment
-#        uses: actions/setup-node@v3.4.1
-#        with:
-#          node-version: 16
-#      - name: Installing dependencies
-#        run: yarn
-#      - name: Building
-#        run: yarn docs:build
-#      - name: Uploading artifacts
-#        uses: actions/upload-artifact@v3.1.0
-#        with:
-#          name: DSPD-web
-#          path: public
-  Deploy:
-    needs: Init
+  Preview:
+    needs: Build
     runs-on: ubuntu-latest
     steps:
-#      - name: Downloading build artifact
-#        uses: actions/download-artifact@v3.0.0
-#        with:
-#          name: DSPD-web
-#          path: public
-#      - name: Deploy
-#        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-#        with:
-#          username: root
-#          server: ${{ secrets.serverip }}
-#          port: ${{ secrets.serverport }}
-#          ssh_private_key: ${{ secrets.serversshkey }}
-#          local_path: './public/*'
-#          remote_path: '/site/prev/dspd/${{ env.PR_NUMBER }}'
-#          sftp_only: false
-#          sftpArgs: '-o ConnectTimeout=5'
-#          delete_remote_files: true
       - name: Get PR ID
         run: echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
-
       - name: Comment to PR
         uses: JoseThen/comment-pr@v1.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
           comment: |
-            ## Your Check has already passed! > < 
+            ## Check Passed! > <
+            
+            The code check has already passed!!!
 
-            Here is your Preview Link, please check if your expectations are met
-
-            If the answer is no, please close this PR immediatly
+            Here is your preview link, check and close your Pr immediately if it doesn't meet your expectations.
 
             [Check Your Code](https://prev.lancex.top/dspd/${{ env.PR_NUMBER }})
 
