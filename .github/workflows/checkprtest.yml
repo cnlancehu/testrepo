@@ -22,7 +22,7 @@ jobs:
             have a nice day~
 
   Preview:
-    needs: Build
+    needs: Check
     runs-on: ubuntu-latest
     steps:
       - name: Get PR ID
