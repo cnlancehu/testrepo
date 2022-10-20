@@ -5,17 +5,36 @@ on:
     types: [opened, reopened]
 
 jobs:
+  Init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR ID
+        run: echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
+      - name: Comment to PR
+        uses: JoseThen/comment-pr@v1.1.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.ghtoken }}
+          comment: |
+            ## Please Wait
+
+            **This message was sent automatically by CI**
+
+            we are building a preview page for your code
+
+            later you will recieve a comment with your preview website link here
+
+            have a nice day!
 #  Check:
 #    runs-on: ubuntu-latest 
 #    steps:
-#      - name: Initializing
+#      - name: Intiializing
 #        uses: actions/checkout@v3
 #      - name: Setting up environment
 #        uses: actions/setup-node@v3.4.1
 #        with:
 #          node-version: 16
 #      - name: Installing dependencies
-#        run: yarn add -D vuepress@next
+#        run: yarn
 #      - name: Building
 #        run: yarn docs:build
 #      - name: Uploading artifacts
@@ -23,8 +42,8 @@ jobs:
 #        with:
 #          name: DSPD-web
 #          path: public
-  Preview:
-#    needs: Build
+  Deploy:
+    needs: Init
     runs-on: ubuntu-latest
     steps:
 #      - name: Downloading build artifact
@@ -44,26 +63,18 @@ jobs:
 #          sftp_only: false
 #          sftpArgs: '-o ConnectTimeout=5'
 #          delete_remote_files: true
-      - name: Get PR ID
-        run: |
-          echo PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') >> $GITHUB_ENV
-          echo File=$(ls )
+
       - name: Comment to PR
         uses: JoseThen/comment-pr@v1.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.ghtoken }}
           comment: |
-            ### Thanks for your contribution
-
-            **This message was sent automatically by CI**
-
-            If you can see this message, your check has already passed
+            ## Your Check has already passed! > < 
 
             Here is your Preview Link, please check if your expectations are met
 
-            ${{ env.File }}
+            If the answer is no, please close this PR immediatly
 
             [Check Your Code](https://prev.lancex.top/dspd/${{ env.PR_NUMBER }})
-      - uses: actions/checkout@v2
-      - name: Setup Debug Session
-        uses: csexton/debugger-action@master
+
+            Soon we will check and merge it, wait please :)
